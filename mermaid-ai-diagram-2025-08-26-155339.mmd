@@ -1,0 +1,64 @@
+%%{init: {"themeVariables": {"fontSize": "16px", "fontFamily": "'Comic Sans MS', 'Comic Sans', 'Caveat', 'Bradley Hand', cursive"}} }%%
+flowchart TD
+    %% Styles
+    classDef input fill:#e3f0ff,stroke:#0077b6,stroke-width:2px;
+    classDef database fill:#ffe3e3,stroke:#d90429,stroke-width:2px;
+    classDef visualize fill:#edfbf9,stroke:#11998e,stroke-width:2px;
+    classDef agent fill:#f9ecd6,stroke:#fe9000,stroke-width:2px;
+    classDef security fill:#f3e5f5,stroke:#8e24aa,stroke-width:2px,stroke-dasharray:5 5;
+    classDef monitor fill:#f5f5f5,stroke:#1565c0,stroke-width:2px,stroke-dasharray:3 3;
+
+    %% Main Nodes
+    A@{ shape: lean-r, label: "User Input:\nControl-M XML File" }
+    B@{ shape: rect, label: "Input Validator:\nxmlschema/Python Std Lib" }
+    C@{ shape: stadium, label: "Orchestrator:\nLangChain/LangGraph" }
+    D@{ shape: rounded, label: "Parser Agent:\nxml.etree + Hugging Face LLM" }
+    E@{ shape: rounded, label: "Script Reader Agent:\nos/pathlib" }
+    F@{ shape: rounded, label: "Data Source Marker Agent:\nregex/NLTK + LLM" }
+    G@{ shape: rounded, label: "Data Organizer Agent:\nPandas" }
+    H@{ shape: cyl, label: "DB Inserter Agent:\nNeo4j Driver" }
+    I@{ shape: stadium, label: "Visualization Portal:\nStreamlit + Plotly" }
+    L@{ shape: rect, label: "User Dashboard:\nInteractive Lineage Graphs" }
+
+    %% Apply classes
+    class A input;
+    class B input;
+    class C agent;
+    class D,E,F,G agent;
+    class H database;
+    class I,L visualize;
+
+    %% Connections
+    A --> B
+    B --> C
+    subgraph "Data Processing Agents"
+        direction TB
+        C --> D
+        D --> E
+        E --> F
+        F --> G
+    end
+    G --> H
+    H --> I
+    I --> L
+
+    %% Security Subgraph
+    subgraph "Open-Source Security"
+        J@{ shape: hex, label: "PyJWT/Auth Libs" }
+        class J security;
+    end
+
+    %% Monitoring Subgraph
+    subgraph Monitoring
+        K@{ shape: rect, label: "Prometheus/Grafana" }
+        class K monitor;
+    end
+
+    %% Security Connections (dotted)
+    C -.-> J
+    E -.-> J
+    F -.-> J
+    H -.-> J
+
+    %% Monitoring Connections
+    C --> K
