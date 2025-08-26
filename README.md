@@ -1,7 +1,5 @@
 # AI-Driven-Data-Lineage
 
-# AI-MCP-DataLineage
-
 An AI-powered platform for visualizing data lineage from Control-M XML files, using multi-agent systems and Model Context Protocol (MCP) for automated extraction, analysis, and display. This tool helps data teams trace data flows securely and efficiently, addressing common challenges like accuracy and scalability.
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
